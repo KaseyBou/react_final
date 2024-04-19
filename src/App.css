@@ -52,7 +52,7 @@ header {
 /*Home Page*/
 
 .img-cooking {
-  height: 40rem;
+  height: auto;
   width: 100%;
 }
 
@@ -134,6 +134,92 @@ input:checked + .slider:before {
   width: 90%;
   border: 1px solid #dedede;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.recipes-button {
+  background-color: #ffa600;
+  background-image: linear-gradient(to right, #ff7300, #fff200);
+  border-radius: 5px;
+  border: 1px solid #ffa600;
+  padding: 6px;
+  margin-left: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.recipes-button:hover {
+  background-image: linear-gradient(to right, #d96200, #d2c700);
+}
+
+.likes-button {
+  background-color: #ffa600;
+  background-image: linear-gradient(to right, #cd44ff, #ff6ceb);
+  border-radius: 5px;
+  border: 1px solid #ff57d5;
+  padding: 6px;
+  margin-left: 80%;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.likes-button:hover {
+  background-image: linear-gradient(to right, #d76aff, #ff7aed);
+}
+
+/*Home Page*/
+
+.sign-up-button {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 10px;
+  margin-left: 80%;
+  margin-right: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sign-up-button:hover {
+  background-color: #dddcdc;
+}
+
+.recipes-button-home {
+  background-color: #ffa600;
+  background-image: linear-gradient(to right, #ff7300, #fff200);
+  border-radius: 5px;
+  border: 1px solid #ffa600;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.recipes-button-home:hover {
+  background-image: linear-gradient(to right, #ea6900, #dbd000);
+}
+
+/*Likes Page*/
+
+.likesH1 {
+  display: flex;
+  font-size: 3rem;
+  justify-content: center;
+  margin-top: 5%;
+  color: #f5931f;
+}
+
+.removeLikeBtn {
+  background-color: #ffa600;
+  background-image: linear-gradient(to right, #ff7300, #fff200);
+  border-radius: 5px;
+  border: 1px solid #ffa600;
+  padding: 6px;
+  margin-left: 78.5%;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.removeLikeBtn:hover {
+  background-image: linear-gradient(to right, #ea6900, #dbd000);
 }
 
 /* Spinner */

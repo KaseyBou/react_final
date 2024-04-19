@@ -62,6 +62,16 @@ export const Settings = () => {
     marginRight: '5%',
   };
 
+  const INFO_CARDSTYLE = {
+    borderBottomLeftRadius: '10px',
+    borderBottomRightRadius: '10px',
+    backgroundColor: '#e0e0e0',
+    marginLeft: '35%',
+    margingRight: '35%',
+    width: '30%',
+    padding: '20px',
+  };
+
   return (
     <div style={{ marginTop: '7rem' }}>
       <h1 style={{ marginLeft: '35%', marginRight: '35%', marginTop: '4rem' }}>

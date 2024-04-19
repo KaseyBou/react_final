@@ -1,32 +1,24 @@
-import { useState } from 'react';
-import { Button } from '../components/Button';
+import React, { useState } from 'react';
 import { Spinner } from '../components/Spinner';
 import { useFetch } from '../hooks/useFetch';
 import { Card } from '../components/Card';
+// icon
+import like from '../assets/icons/icon-likes.png';
+import { useLikes } from '../LikesContext';
+
+const RECIPES_CARD_STYLE = {
+  backgroundColor: '#e0e0e0',
+  borderRadius: '5px',
+  padding: '2rem',
+  width: '60%',
+  marginLeft: '15%',
+  marginTop: '2rem',
+};
 
 export const Recipes = () => {
-  const RECIPES_BUTTON_STYLE = {
-    backgroundColor: '#ffa600',
-    backgroundImage: `linear-gradient(to right, #ff7300, #fff200)`,
-    borderRadius: '5px',
-    border: '1px solid #ffa600',
-    padding: '6px',
-    marginLeft: '4px',
-    fontSize: '1rem',
-    cursor: 'pointer',
-  };
-
-  const RECIPES_CARD_STYLE = {
-    backgroundColor: '#e0e0e0',
-    borderRadius: '5px',
-    padding: '2rem',
-    width: '60%',
-    marginLeft: '15%',
-    marginTop: '2rem',
-  };
-
   const [recipe, setRecipe] = useState('');
   const [showRecipe, setShowRecipe] = useState(false);
+  const { likedRecipes, addLikedRecipe } = useLikes();
 
   const {
     data: meals,
@@ -36,8 +28,14 @@ export const Recipes = () => {
     `https://www.themealdb.com/api/json/v1/1/search.php?s=${recipe}`
   );
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setShowRecipe(true);
+    console.log(meals.meals[0]);
+  };
+
   if (error) {
-    return <p>An error occured: {error}</p>;
+    return <p>An error occurred: {error}</p>;
   }
 
   if (loading) {
@@ -48,17 +46,31 @@ export const Recipes = () => {
     );
   }
 
-  let myMeal: any;
-  myMeal = meals.meals[0];
+  // error handling if there isn't any meals
+  if (!showRecipe || !meals || !meals.meals || meals.meals.length === 0) {
+    return (
+      <>
+        <div className='recipes'></div>
+        <form onSubmit={submitHandler}>
+          <input
+            type='text'
+            required
+            value={recipe}
+            placeholder='Search...'
+            onChange={(e) => setRecipe(e.target.value)}
+            className='search-field'
+          />
+          <button className='recipes-button'>Submit</button>
+        </form>
+        {showRecipe && <p>No meals found for "{recipe}"</p>}
+      </>
+    );
+  }
 
-  const submitHandler = (e: any) => {
-    setShowRecipe(true);
-    e.preventDefault();
-    console.log(recipe);
-    console.log(meals);
+  const myMeal = meals.meals[0];
 
-    console.log(myMeal.strMeal);
-    console.log(myMeal.strCategory);
+  const addLikes = () => {
+    addLikedRecipe(myMeal);
   };
 
   return (
@@ -73,22 +85,26 @@ export const Recipes = () => {
           onChange={(e) => setRecipe(e.target.value)}
           className='search-field'
         />
-        <Button style={RECIPES_BUTTON_STYLE}>Submit</Button>
+        <button className='recipes-button'>Submit</button>
       </form>
-      {showRecipe ? (
+      {showRecipe && (
         <Card style={RECIPES_CARD_STYLE}>
-          <img
-            src={myMeal.strMealThumb}
-            style={{ height: '30rem', width: '30rem' }}
-          />
-          <h2>{myMeal.strMeal}</h2>
-          <h3>{myMeal.strArea}</h3>
-          <p>Category: {myMeal.strCategory}</p>
-          <p>Instructions:</p>
-          <p>{myMeal.strInstructions}</p>
+          <div key={myMeal.idMeal}>
+            <img
+              src={myMeal.strMealThumb}
+              style={{ height: '30rem', width: '30rem' }}
+              alt={myMeal.strMeal}
+            />
+            <h2>{myMeal.strMeal}</h2>
+            <h3>{myMeal.strArea}</h3>
+            <p>Category: {myMeal.strCategory}</p>
+            <p>Instructions:</p>
+            <p>{myMeal.strInstructions}</p>
+            <button className='likes-button' onClick={addLikes}>
+              Like Recipe <img src={like} className='icons' />
+            </button>
+          </div>
         </Card>
-      ) : (
-        <div></div>
       )}
     </>
   );
